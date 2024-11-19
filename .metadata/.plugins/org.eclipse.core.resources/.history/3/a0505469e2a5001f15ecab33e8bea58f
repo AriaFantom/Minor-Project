@@ -1,0 +1,5 @@
+package com.healthify.util;
+
+public class DBUtil {
+
+}
