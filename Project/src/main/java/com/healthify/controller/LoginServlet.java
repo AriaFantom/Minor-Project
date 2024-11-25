@@ -36,12 +36,18 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(password);
 		
 		
-		if(userDao.isValid(email, password)) {
+		if(userDao.isValid(email, password) == "p") {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
+			response.sendRedirect("patient-panel.jsp");
 			
-			response.sendRedirect("index.jsp?success=true");
-		} else {
+		} else if (userDao.isValid(email, password) == "d") {
+			HttpSession session = request.getSession();
+			session.setAttribute("email", email);
+			response.sendRedirect("doctor-panel.jsp");
+		}
+		
+		else {
 			response.sendRedirect("login.jsp?err=notfound");
 		}
 	}

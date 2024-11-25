@@ -72,3 +72,4 @@
 0:0:0:0:0:0:0:1 - - [19/Nov/2024:12:10:31 +0530] "POST /Project/RegisterServlet HTTP/1.1" 302 -
 0:0:0:0:0:0:0:1 - - [19/Nov/2024:12:10:31 +0530] "GET /Project/login.jsp?register=success HTTP/1.1" 200 825
 0:0:0:0:0:0:0:1 - - [19/Nov/2024:12:11:24 +0530] "POST /Project/LoginServlet HTTP/1.1" 200 -
+127.0.0.1 - - [19/Nov/2024:12:12:19 +0530] "GET / HTTP/1.1" 404 752

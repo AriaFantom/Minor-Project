@@ -10,7 +10,7 @@ import com.healthify.util.DBUtil;
 public class UserDaoImpl implements UserDao {
 
 	@Override
-	public boolean isValid(String email, String password) {
+	public String isValid(String email, String password) {
 		
 		String query = "Select * from users where email = ? and password = ?";
 		
@@ -21,11 +21,15 @@ public class UserDaoImpl implements UserDao {
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
-			return resultSet.next();
+			 if (resultSet.next()) {
+		            return resultSet.getString("type");
+		        } else {
+		            return "None"; 
+		        }
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			return "None";
 		}
 		
 	}

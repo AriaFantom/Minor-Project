@@ -1,5 +1,0 @@
-package com.healthify.dao;
-
-public class UserDaoImpl implements UserDao {
-
-}
