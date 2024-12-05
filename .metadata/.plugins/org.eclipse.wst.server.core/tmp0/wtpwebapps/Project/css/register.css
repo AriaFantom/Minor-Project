@@ -21,8 +21,12 @@ main {
     gap: 20px;
     justify-content: center;
     align-items: center;
-
     height: 100vh;
+}
+
+.form-footer {
+	font-family: 'DM Serif Text', sans-serif;
+    margin: 8px 0;
 }
 
 main img {
@@ -37,7 +41,7 @@ main img {
     width: 100%;
 }
 
-.form-section p {
+.form-heading {
     font-family: 'Oswald', sans-serif;
     font-size: 2rem;
     margin-bottom: 20px;
@@ -88,3 +92,4 @@ form button {
     width: 700px;
     height: 700px;
 }
+

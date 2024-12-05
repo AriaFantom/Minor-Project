@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-footer {
+	font-family: 'DM Serif Text', sans-serif;
+    margin: 8px 0;
+}
+.form-footer {
+	text-decoration: none;
+}
+main img {
+    width: 100px;
+    height: 100px;
+}
+.form-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-heading {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 350px;
+}
+
+form label {
+    font-family: 'Oswald', sans-serif;
+    margin-top: 20px;
+    margin-bottom: 2px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+form input {
+    font-family: 'DM Serif Text', sans-serif;
+    padding: 5px 20px;
+    border-radius: 6px;
+}
+
+form button {
+    font-family: 'DM Serif Text', sans-serif;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #196366;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.aside-form {
+    background: #196366;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aside-form img {
+    width: 700px;
+    height: 700px;
+}
+

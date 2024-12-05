@@ -12,7 +12,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public String isValid(String email, String password) {
 		
-		String query = "Select * from users where email = ? and password = ?";
+		String query = "Select * from patients where email = ? and password = ?";
 		
 		try(Connection connection = DBUtil.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean addUser(User user) {
 		
-		String query = "INSERT INTO users (username, email, phno, password) values (?, ?, ?, ?);";
+		String query = "INSERT INTO patients (username, email, phno, password) values (?, ?, ?, ?);";
 		
 		try(Connection connection = DBUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(query)) {

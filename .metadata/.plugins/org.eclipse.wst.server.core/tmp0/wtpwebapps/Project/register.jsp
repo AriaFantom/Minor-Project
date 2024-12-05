@@ -14,8 +14,7 @@
     </div>
     <div class="form-section">
         <img src="assets/icons/logo.png" alt="logo">
-        <p>Registration Form</p>
-
+        <p class="form-heading">Registration Form</p>
         <form method="post" action="RegisterServlet">
             <label for="name">Username</label>
             <input type="text" id="name" name="username" placeholder="Enter your name">
@@ -29,6 +28,7 @@
             <input type="password" id="confirm-password" placeholder="Confirm your password">
             <button>Register</button>
         </form>
+        <p class="form-footer">Do have an account?<a href="login.jsp"> Sign in </a></p>
     </div>
 </main>
 </body>
