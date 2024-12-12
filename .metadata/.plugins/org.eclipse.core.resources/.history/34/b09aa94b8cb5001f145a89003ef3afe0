@@ -1,0 +1,36 @@
+package com.healthify.dao;
+
+public class PanelData {
+	
+	private int doctors;
+	private int patients;
+	private int new_bookings;
+	private int todays_sessions;
+	
+	public int getDoctors() {
+		return doctors;
+	}
+	public void setDoctors(int doctors) {
+		this.doctors = doctors;
+	}
+	public int getPatients() {
+		return patients;
+	}
+	public void setPatients(int patients) {
+		this.patients = patients;
+	}
+	public int getNew_bookings() {
+		return new_bookings;
+	}
+	public void setNew_bookings(int new_bookings) {
+		this.new_bookings = new_bookings;
+	}
+	public int getTodays_sessions() {
+		return todays_sessions;
+	}
+	public void setTodays_sessions(int todays_sessions) {
+		this.todays_sessions = todays_sessions;
+	}
+	
+	
+}

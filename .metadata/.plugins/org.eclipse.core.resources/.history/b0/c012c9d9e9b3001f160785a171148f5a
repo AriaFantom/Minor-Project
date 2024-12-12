@@ -1,0 +1,5 @@
+package com.healthify.controller;
+
+public interface DoctorDao {
+
+}

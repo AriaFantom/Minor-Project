@@ -13,8 +13,6 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
 	public String getEmail() {
 		return email;
 	}
@@ -33,5 +31,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	
 }

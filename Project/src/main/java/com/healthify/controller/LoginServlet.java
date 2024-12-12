@@ -8,9 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
-import com.healthify.dao.UserDaoImpl;
-import com.healthify.dao.UserDao;
+import com.healthify.dao.*;
 
 /**
  * Servlet implementation class LoginServlet
@@ -19,6 +17,7 @@ import com.healthify.dao.UserDao;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static UserDao userDao = new UserDaoImpl();
+    private static DoctorDao doctorDao = new DoctorDaoImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,15 +35,15 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(password);
 		
 		
-		if(userDao.isValid(email, password) == "p") {
+		   if(userDao.isValid(email, password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
-			response.sendRedirect("patient-panel.jsp");
+			response.sendRedirect("dashboard/patient/panel.jsp");
 			
-		} else if (userDao.isValid(email, password) == "d") {
+		} else if (doctorDao.isValid(email, password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
-			response.sendRedirect("doctor-panel.jsp");
+			response.sendRedirect("dashboard/doctor/panel.jsp");
 		}
 		
 		else {

@@ -1,0 +1,32 @@
+package com.healthify.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.healthify.util.DBUtil;
+
+public class PanelDataDaoImp implements PanelDataDao {
+
+	@Override
+	public PanelData fetchData() {
+		
+		String doctors_query = "SELECT COUNT(*) AS doctor_count FROM doctors";
+		String patient_query = "SELECT COUNT(*) AS patient_count FROM patients";
+		String newbooking_query = "SELECT COUNT(*) AS new_booking FROM apponitments";
+		String schedule_query = "SELECT COUNT(*) AS new_schedule FROM schedule";
+		
+		 try (Connection conn = DBUtil.getConnection()) {
+	            // Fetch Doctor Count
+	            try (PreparedStatement pstmt = conn.prepareStatement(doctorsQuery);
+	                 ResultSet rs = pstmt.executeQuery()) {
+	                if (rs.next()) {
+	                    panelData.setDoctors(rs.getInt("doctor_count"));
+	                }
+	            }
+				
+		
+	}
+
+}

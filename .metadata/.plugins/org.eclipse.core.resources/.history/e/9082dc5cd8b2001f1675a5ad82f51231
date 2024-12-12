@@ -1,9 +1,0 @@
-package com.healthify.dao;
-
-public class Doctor {
-
-	private String username;
-	private String email;
-	private String specialist;
-	private String password;
-}

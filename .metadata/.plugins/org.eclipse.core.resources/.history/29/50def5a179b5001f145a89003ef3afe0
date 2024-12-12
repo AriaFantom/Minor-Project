@@ -1,0 +1,6 @@
+package com.healthify.dao;
+
+public interface PanelDataDao {
+	
+	private doctors
+}

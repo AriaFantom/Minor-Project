@@ -1,0 +1,11 @@
+package com.healthify.controller;
+
+public class DoctorDaoImpl implements DoctorDao {
+
+	@Override
+	public boolean isValid(String email, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

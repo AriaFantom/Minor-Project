@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,29 +55,76 @@
 <main>
     <h4 class="panel-heading">Status</h4>
     <div class="stats-container">
-        <div class="stats-card doctors">
+                <% 
+    
+    int Doctors = 0;
+    int Patient = 0;
+    int Bookings = 0;
+    int Appointments = 0;
+    
+    Connection conn = null;
+    PreparedStatement pstm = null;
+    ResultSet rs = null;
+    try {
+   	 Class.forName("com.mysql.cj.jdbc.Driver");
+   		String url="jdbc:mysql://localhost:3306/minorproject";
+   		String uid="root";
+   		String upass="1234";
+   		conn=DriverManager.getConnection(url,uid,upass);
+     
+       pstm = conn.prepareStatement("select count(*) from patients");
+       rs = pstm.executeQuery();
+       while (rs.next()) {
+    	   Patient = rs.getInt(1);
+       }
+       pstm = conn.prepareStatement("select count(*) from doctors");
+       rs = pstm.executeQuery();
+       while (rs.next()) {
+    	   Doctors = rs.getInt(1);
+       }
+       pstm = conn.prepareStatement("select count(*) from schedule");
+       rs = pstm.executeQuery();
+       while (rs.next()) {
+    	   Bookings = rs.getInt(1);
+       }
+       pstm = conn.prepareStatement("select count(*) from appointments");
+       rs = pstm.executeQuery();
+       while (rs.next()) {
+    	   Appointments = rs.getInt(1);
+       }
+       
+      
+    %>
+          <div class="stats-card doctors">
             <div class="stats-icon">👩‍⚕️</div>
-            <div class="stats-number">125</div>
+            <div class="stats-number"><%= Doctors %></div>
             <div class="stats-label">Doctors</div>
         </div>
 
         <div class="stats-card patients">
             <div class="stats-icon">🏥</div>
-            <div class="stats-number">5,670</div>
+            <div class="stats-number"><%= Patient %></div>
             <div class="stats-label">Patients</div>
         </div>
 
         <div class="stats-card bookings">
             <div class="stats-icon">📅</div>
-            <div class="stats-number">342</div>
+            <div class="stats-number"><%= Bookings %></div>
             <div class="stats-label">New Bookings</div>
         </div>
 
         <div class="stats-card sessions">
             <div class="stats-icon">🩺</div>
-            <div class="stats-number">1,245</div>
+            <div class="stats-number"><%= Appointments %></div>
             <div class="stats-label">Total Sessions</div>
         </div>
+                <%
+
+} catch (Exception e) {
+	System.out.println(e);
+}
+
+%>
     </div>
 
     <div class="container">

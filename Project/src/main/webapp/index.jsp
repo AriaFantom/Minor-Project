@@ -41,9 +41,9 @@
     </div>
 </section>
 <section class="search-section">
-    <form class="inner-search">
+    <form action="SearchDoctor" method="post" class="inner-search">
         <label for="search">Search Doctors</label>
-        <input id="search" placeholder="Search here" type="text">
+        <input  name="name"  id="search" placeholder="Search here" type="text">
         <button>Search</button>
     </form>
 </section>

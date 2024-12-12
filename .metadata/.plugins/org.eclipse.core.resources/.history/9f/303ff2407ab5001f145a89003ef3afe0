@@ -1,0 +1,9 @@
+package com.healthify.dao;
+
+public class PanelData {
+	
+	private int doctors;
+	private int patients;
+	private int new_bookings;
+	private int todays_sessions;
+}

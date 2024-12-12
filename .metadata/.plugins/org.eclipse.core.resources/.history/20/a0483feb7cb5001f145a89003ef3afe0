@@ -1,0 +1,19 @@
+package com.healthify.dao;
+
+public class PanelDataDaoImp implements PanelDataDao {
+
+	@Override
+	public PanelData fetchData() {
+		
+		String doctors_query = "SELECT COUNT(*) AS doctor_count FROM doctors";
+		String patient_query = "SELECT COUNT(*) AS patient_count FROM patients";
+		String newbooking_query = "SELECT COUNT(*) AS new_booking FROM apponitments";
+		String schedule_query = "SELECT COUNT(*) AS new_schedule FROM schedule";
+		
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			
+		}
+		
+	}
+
+}
