@@ -48,7 +48,7 @@
 <main>
     <div class="top-heading">
         <h4 class="panel-heading">Session Manager</h4>
-        <button class="add-button">+ Add Session</button>
+        <a href="schedule/create.jsp"><button class="add-button">+ Add Session</button></a>
     </div>
     <div class="container">
         <table class="appointment-table">

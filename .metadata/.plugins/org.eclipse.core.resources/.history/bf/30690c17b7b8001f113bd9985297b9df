@@ -1,0 +1,155 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../css/doctor-panel.css">
+    <style>
+.session-form-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.session-form .form-group {
+    margin-bottom: 15px;
+}
+
+.session-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.session-form input, 
+.session-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+</style>
+</head>
+<body>
+<aside class="side-bar">
+    <div class="user-info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor"
+             stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="user-avatar">
+            <circle cx="12" cy="8" r="5"/>
+            <path d="M20 21a8 8 0 0 0-16 0"/>
+        </svg>
+        <p>Doctor</p>
+    </div>
+    <ul class="siderbar-navlinks">
+        <li>
+            <a href="panel.jsp">
+                <div class="icon">📊</div>
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="schedule.jsp">
+                <div class="icon">📆</div>
+                Schedule
+            </a>
+        </li>
+        <li>
+            <a href="appointments.jsp">
+                <div class="icon">📅</div>
+                Appointments
+            </a>
+        </li>
+        <li>
+            <a href="patients.jsp">
+                <div class="icon">🏥</div>
+                Patients
+            </a>
+        </li>
+    </ul>
+</aside>
+<main>
+    <div class="top-heading">
+        <h4 class="panel-heading">Session Adding</h4>
+    </div>
+    <div class="container">
+        <form action="AddSessionServlet" method="post" class="session-form" onsubmit="return validateForm()">
+        <input type="hidden" name="doctor_id" value="${sessionScope.doctorId}">
+        
+        <div class="form-group">
+            <label for="id">Session ID:</label>
+            <input type="text" id="id" name="id" required 
+                   pattern="[A-Za-z0-9]+" 
+                   title="Session ID must contain only letters and numbers"
+                   placeholder="Enter unique session ID">
+        </div>
+        
+        <div class="form-group">
+            <label for="name">Session Name:</label>
+            <input type="text" id="name" name="name" required 
+                   maxlength="100" 
+                   placeholder="Enter session name">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" 
+                      maxlength="500" 
+                      placeholder="Enter session description"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="start_time">Start Time:</label>
+            <input type="datetime-local" id="start_time" name="start_time" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="end_time">End Time:</label>
+            <input type="datetime-local" id="end_time" name="end_time" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="week">Week Number:</label>
+            <input type="number" id="week" name="week" 
+                   min="1" max="52" 
+                   required 
+                   placeholder="Enter week number (1-52)">
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Add Session</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+    </form>
+    </div>
+</main>
+</body>
+</html>
