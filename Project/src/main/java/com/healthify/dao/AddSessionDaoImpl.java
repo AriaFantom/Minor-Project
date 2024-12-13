@@ -35,9 +35,6 @@ public class AddSessionDaoImpl implements AddSessionDao {
         String insertSql = "INSERT INTO schedule (name, description, start_time, week, doctor_id, end_time) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement insertPs = conn.prepareStatement(insertSql)) {
-        	
-        	System.out.println(session.getStartTime());
-        	System.out.println(session.getEndTime());
 
             insertPs.setString(1, session.getName());
             insertPs.setString(2, session.getDescription());
@@ -55,5 +52,21 @@ public class AddSessionDaoImpl implements AddSessionDao {
         }
         
     }
+
+	@Override
+	public boolean removeSession(int SessionId) {
+		  String sql = "DELETE FROM schedule WHERE id = ?";
+	        try (Connection conn = DBUtil.getConnection();
+	             PreparedStatement pstm  = conn.prepareStatement(sql)) {
+	             pstm.setInt(1, SessionId);
+	             
+	             int rowsAffected = pstm.executeUpdate();
+	             return rowsAffected > 0;
+	             
+	        } catch (SQLException e) {
+	        	 e.printStackTrace();
+	             return false;
+	        } 
+	}
 }
 

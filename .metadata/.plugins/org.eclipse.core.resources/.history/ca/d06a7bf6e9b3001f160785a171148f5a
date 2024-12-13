@@ -1,7 +1,0 @@
-package com.healthify.controller;
-
-public interface DoctorDao {
-
-	boolean isValid(String email, String password);
-
-}

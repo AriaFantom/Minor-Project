@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.sql.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,80 +59,69 @@
             <thead>
             <tr>
                 <th>Session Name</th>
-                <th>Doctor</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Max booking</th>
+                <th>Description</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Week</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Shirt</td>
-                <td>$20</td>
-                <td>10</td>
-                <td>$200</td>
-                <td>10</td>
-                <td>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Pants</td>
-                <td>$30</td>
-                <td>5</td>
-                <td>$150</td>
-                <td>10</td>
-                <td>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
-                </td>
-            </tr>
+             <%
+                String doctorEmail = (String) session.getAttribute("email");
+                Connection conn = null;
+                PreparedStatement pstm = null;
+                ResultSet rs = null;
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url="jdbc:mysql://localhost:3306/minorproject";
+                    String uid="root";
+                    String upass="1234";
+                    conn=DriverManager.getConnection(url,uid,upass);
+                    
+                    pstm = conn.prepareStatement("SELECT s.id, s.name, s.description, s.start_time, s.end_time, s.week " +
+                            "FROM schedule s " +
+                            "JOIN doctors d ON s.doctor_id = d.id " +
+                            "WHERE d.email = ?");
+             
+                    pstm.setString(1, doctorEmail);
+                    rs = pstm.executeQuery();
+                    
+                    while (rs.next()) {
+                    	int sessionId = rs.getInt("id");
+                        String sessionName = rs.getString("name");
+                        String description = rs.getString("description");
+                        String startTime = rs.getString("start_time");
+                        String endTime = rs.getString("end_time");
+                        String formattedStartTime = startTime.substring(0, 5);
+                        String formattedEndTime = endTime.substring(0, 5);
+                        int week = rs.getInt("week");
+                        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+                        String dayName = (week >= 1 && week <= 7) ? days[week - 1] : "Unknown Day";
+                    %>
+                    <tr>
+                    <td><%= sessionName %></td>
+                    <td><%= (description != null) ? description : "" %></td>
+                     <td><%= formattedStartTime %></td>
+                    <td><%= formattedEndTime %></td>
+                    <td><%= dayName %></td>
+                    <td>
+                        <!-- <button class="edit-button">Edit</button>  -->
+                        <form action="<%=request.getContextPath()%>/RemoveSessionServlet" method="post">
+                          <input type="hidden" name="session_id" value="<%= sessionId %>"/>
+                          <button type="submit" class="delete-button">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <%
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                  %>
+                <tr>
+                    <td colspan="7" style="color:red;">Error retrieving sessions</td>
+                </tr>
+            <% } %>
             </tbody>
         </table>
     </div>

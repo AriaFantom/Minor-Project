@@ -15,7 +15,7 @@
     <div class="form-section">
         <img src="assets/icons/logo.png" alt="logo">
         <p class="form-heading">Registration Form</p>
-        <form method="post" action="RegisterServlet">
+        <form method="post" action="controller/RegisterServlet">
             <label for="name">Username</label>
             <input type="text" id="name" name="username" placeholder="Enter your name">
             <label for="email">Email</label>
