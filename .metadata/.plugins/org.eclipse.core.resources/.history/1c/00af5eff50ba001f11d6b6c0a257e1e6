@@ -1,0 +1,13 @@
+package com.healthify.dao;
+
+public class AppointmentDaoImpl implements AppointmentDao {
+
+	@Override
+	public boolean addBooking(AppointmentDao appointment) {
+		
+		String sql = "INSERT INTO appointments (patient_id doctor_id schedule) VALUES (?, ?, ?)";
+		
+		return false;
+	}
+
+}

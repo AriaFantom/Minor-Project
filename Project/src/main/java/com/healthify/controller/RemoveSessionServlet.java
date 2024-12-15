@@ -32,7 +32,6 @@ public class RemoveSessionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		    String sessionIdParam = request.getParameter("session_id");
-		    System.out.print("Hello");
 		    System.out.print(sessionIdParam);
 
 	        int sessionId;

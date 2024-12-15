@@ -1,0 +1,11 @@
+package com.healthify.dao;
+
+public class AppointmentDaoImpl implements AppointmentDao {
+
+	@Override
+	public boolean addBooking() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

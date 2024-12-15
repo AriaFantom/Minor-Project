@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@page import="java.sql.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +19,31 @@
             <circle cx="12" cy="8" r="5"/>
             <path d="M20 21a8 8 0 0 0-16 0"/>
         </svg>
-        <p>Patient</p>
+        <%
+                String username = "";
+                String doctorEmail = (String) session.getAttribute("email");
+                Connection conn = null;
+                PreparedStatement pstm = null;
+                ResultSet rs = null;
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url="jdbc:mysql://localhost:3306/minorproject";
+                    String uid="root";
+                    String upass="1234";
+                    conn=DriverManager.getConnection(url,uid,upass);
+                    
+                    pstm = conn.prepareStatement("SELECT username from patients where email = ?");
+                    pstm.setString(1, doctorEmail);
+                    rs = pstm.executeQuery();
+                    if (rs.next()) {
+                        username = rs.getString("username");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
+                    		
+        <p><%= username != null && !username.trim().isEmpty() ? username : "Not Logged In" %></p>
     </div>
     <ul class="siderbar-navlinks">
         <li>
@@ -32,7 +59,7 @@
             </a>
         </li>
         <li>
-            <a href="bookings.jsp">
+            <a href="booking.jsp">
                 <div class="icon">📆</div>
                 Bookings
             </a>
@@ -50,15 +77,63 @@
         <h4 class="panel-heading">Bookings</h4>
     </div>
     <div class="bookings-container">
+
+    <%
+    
+    
+    
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url="jdbc:mysql://localhost:3306/minorproject";
+        String uid="root";
+        String upass="1234";
+        conn=DriverManager.getConnection(url,uid,upass);
+
+        pstm = conn.prepareStatement("SELECT a.id AS appointment_id, " +
+        	       "d.username AS doctor_username, " +
+        	       "d.specialist, " +
+        	       "s.start_time, " +
+        	       "s.end_time, " +
+        	       "s.week " +
+        	"FROM appointments a " +
+        	"JOIN patients p ON a.patient_id = p.id " +
+        	"JOIN doctors d ON a.doctor_id = d.id " +
+        	"JOIN schedule s ON a.schedule = s.id " +
+        	"WHERE p.email = ?; ");
+        
+        pstm.setString(1, doctorEmail);
+        rs = pstm.executeQuery();
+        
+        while(rs.next()) {
+        	String appointment_id = rs.getString("appointment_id");
+        	String doctor_name = rs.getString("doctor_username");
+            String specialist = rs.getString("specialist");
+            String start_time = rs.getString("start_time");
+            String end_time = rs.getString("end_time");
+            int week = rs.getInt("week");
+            String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+            String dayName = (week >= 1 && week <= 7) ? days[week - 1] : "Unknown Day";
+    
+    %>
         <div class="bookings-card">
-            <h1>Reference Number : 0C-001</h1>
+            <h1>Reference Number : <%= appointment_id %></h1>
             <h2>Session Name</h2>
-            <h3><span class="highlight-text">Booking Date:</span> 12/1/2024</h3>
-            <h3><span class="highlight-text">Doctor:</span> Dr. John Doe</h3>
-            <h4><span class="highlight-text">Schedule Date:</span> 13/2/2024</h4>
-            <h4><span class="highlight-text">Schedule Time:</span> 10:00 AM</h4>
-            <button class="add-button">Cancel Booking</button>
+            <h3><span class="highlight-text">Doctor:</span> <%= doctor_name %></h3>
+            <h3><span class="highlight-text">Specialist:</span> <%= specialist %></h3>
+            <h3><span class="highlight-text">Day:</span> <%= dayName %></h3>
+            <h4><span class="highlight-text">Time Slot:</span>[ <%= start_time %> - <%= end_time %>]</h4>     
+            <form method="post" action="<%=request.getContextPath()%>/DeleteAppointment">
+            <input type="hidden" name="appointment_id" value="<%= appointment_id %>">
+            <button type="submit" class="add-button">Cancel Booking</button>
+            </form>
         </div>
+        <% } 
+        
+    }catch (Exception e) {
+            e.printStackTrace(); 
+            }
+
+%>
     </div>
 </main>
 </body>

@@ -19,7 +19,31 @@
             <circle cx="12" cy="8" r="5"/>
             <path d="M20 21a8 8 0 0 0-16 0"/>
         </svg>
-        <p>Doctor</p>
+         <%
+                String username = "";
+                String doctorEmail = (String) session.getAttribute("email");
+                Connection conn = null;
+                PreparedStatement pstm = null;
+                ResultSet rs = null;
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url="jdbc:mysql://localhost:3306/minorproject";
+                    String uid="root";
+                    String upass="1234";
+                    conn=DriverManager.getConnection(url,uid,upass);
+                    
+                    pstm = conn.prepareStatement("SELECT username from doctors where email = ?");
+                    pstm.setString(1, doctorEmail);
+                    rs = pstm.executeQuery();
+                    if (rs.next()) {
+                        username = rs.getString("username");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
+                    		
+        <p><%= username != null && !username.trim().isEmpty() ? username : "Not Logged In" %></p>
     </div>
     <ul class="siderbar-navlinks">
         <li>
@@ -68,10 +92,7 @@
             </thead>
             <tbody>
              <%
-                String doctorEmail = (String) session.getAttribute("email");
-                Connection conn = null;
-                PreparedStatement pstm = null;
-                ResultSet rs = null;
+           
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     String url="jdbc:mysql://localhost:3306/minorproject";

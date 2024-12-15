@@ -1,0 +1,7 @@
+package com.healthify.dao;
+
+public interface AppointmentDao {
+	
+	boolean addBooking(AppointmentDao appointment)
+
+}
