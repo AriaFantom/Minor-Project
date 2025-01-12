@@ -1,11 +1,19 @@
 package com.healthify.dao;
-
+import java.sql.Timestamp;
 public class Appointment {
 	
 	private String patient_id;
 	private String doctor_id;
 	private String schedule;
+	private Timestamp date;
+	private String status;
 	
+	public String isDone() {
+		return status;
+	}
+	public void setDone(String status) {
+		this.status = status;
+	}
 	public String getPatient_id() {
 		return patient_id;
 	}
@@ -24,5 +32,12 @@ public class Appointment {
 	public void setSchedule(String schedule) {
 		this.schedule = schedule;
 	}
+	public Timestamp getDate() {
+		return date;
+	}
+	public void setDate(Timestamp date) {
+		this.date = date;
+	}
+
 	
 }

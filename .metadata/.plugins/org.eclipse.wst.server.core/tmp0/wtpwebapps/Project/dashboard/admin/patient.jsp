@@ -44,7 +44,7 @@
       </a>
     </li>
     <li>
-      <a href="patients.jsp">
+      <a href="patient.jsp">
         <div class="icon">🏥</div>
         Patients
       </a>
@@ -76,46 +76,7 @@
                 <td>10</td>
                 <td>$200</td>
             </tr>
-            <tr>
-                <td>Pants</td>
-                <td>$30</td>
-                <td>5</td>
-                <td>$150</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
+     
             </tbody>
         </table>
     </div>

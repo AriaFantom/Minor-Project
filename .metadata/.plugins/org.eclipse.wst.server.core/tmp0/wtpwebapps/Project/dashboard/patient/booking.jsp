@@ -11,15 +11,7 @@
     <link rel="stylesheet" href="../../css/patient-panel.css">
 </head>
 <body>
-<aside class="side-bar">
-    <div class="user-info">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="user-avatar">
-            <circle cx="12" cy="8" r="5"/>
-            <path d="M20 21a8 8 0 0 0-16 0"/>
-        </svg>
-        <%
+    <%
                 String username = "";
                 String doctorEmail = (String) session.getAttribute("email");
                 Connection conn = null;
@@ -40,8 +32,18 @@
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                } 
+                
+                if(username != null && !username.trim().isEmpty()) {
             %>
+<aside class="side-bar">
+    <div class="user-info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor"
+             stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="user-avatar">
+            <circle cx="12" cy="8" r="5"/>
+            <path d="M20 21a8 8 0 0 0-16 0"/>
+        </svg>
                     		
         <p><%= username != null && !username.trim().isEmpty() ? username : "Not Logged In" %></p>
     </div>
@@ -99,7 +101,7 @@
         	"JOIN patients p ON a.patient_id = p.id " +
         	"JOIN doctors d ON a.doctor_id = d.id " +
         	"JOIN schedule s ON a.schedule = s.id " +
-        	"WHERE p.email = ?; ");
+        	"WHERE p.email = ? AND a.status = 'booked'; ");
         
         pstm.setString(1, doctorEmail);
         rs = pstm.executeQuery();
@@ -136,5 +138,13 @@
 %>
     </div>
 </main>
+<% } else { %>
+
+ <div class="errordiv">
+ 	<h1>Login</h1>
+ 		<a href="<%= request.getContextPath() %>/login.jsp">Go to Login Page</a>
+ </div>
+
+<% } %>
 </body>
 </html>

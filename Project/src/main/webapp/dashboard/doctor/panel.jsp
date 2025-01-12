@@ -11,15 +11,8 @@
     <link rel="stylesheet" href="../../css/doctor-panel.css">
 </head>
 <body>
-<aside class="side-bar">
-    <div class="user-info">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="user-avatar">
-            <circle cx="12" cy="8" r="5"/>
-            <path d="M20 21a8 8 0 0 0-16 0"/>
-        </svg>
-         <%
+      <%
+  	String user_id = "";
                 String username = "";
                 String doctorEmail = (String) session.getAttribute("email");
                 Connection conn = null;
@@ -32,16 +25,29 @@
                     String upass="1234";
                     conn=DriverManager.getConnection(url,uid,upass);
                     
-                    pstm = conn.prepareStatement("SELECT username from doctors where email = ?");
+                    pstm = conn.prepareStatement("SELECT id, username from doctors where email = ?");
                     pstm.setString(1, doctorEmail);
                     rs = pstm.executeQuery();
                     if (rs.next()) {
+                    	user_id = rs.getString("id");
                         username = rs.getString("username");
+                        
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                } 
+                
+                if(username != null && !username.trim().isEmpty()) {
             %>
+<aside class="side-bar">
+    <div class="user-info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor"
+             stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="user-avatar">
+            <circle cx="12" cy="8" r="5"/>
+            <path d="M20 21a8 8 0 0 0-16 0"/>
+        </svg>
+
                     		
         <p><%= username != null && !username.trim().isEmpty() ? username : "Not Logged In" %></p>
     </div>
@@ -99,12 +105,14 @@
        while (rs.next()) {
     	   Doctors = rs.getInt(1);
        }
-       pstm = conn.prepareStatement("select count(*) from schedule");
+       pstm = conn.prepareStatement("select count(*) from schedule where doctor_id = ?");
+       pstm.setString(1, user_id);
        rs = pstm.executeQuery();
        while (rs.next()) {
     	   Bookings = rs.getInt(1);
        }
-       pstm = conn.prepareStatement("select count(*) from appointments");
+       pstm = conn.prepareStatement("select count(*) from appointments where doctor_id = ?");
+       pstm.setString(1, user_id);
        rs = pstm.executeQuery();
        while (rs.next()) {
     	   Appointments = rs.getInt(1);
@@ -126,13 +134,13 @@
 
         <div class="stats-card bookings">
             <div class="stats-icon">📅</div>
-            <div class="stats-number"><%= Appointments %></div>
-            <div class="stats-label">New Bookings</div>
+            <div class="stats-number"><%= Bookings %></div>
+            <div class="stats-label">Total Schedules</div>
         </div>
 
         <div class="stats-card sessions">
             <div class="stats-icon">🩺</div>
-            <div class="stats-number"><%= Bookings %></div>
+            <div class="stats-number"><%= Appointments %></div>
             <div class="stats-label">Total Sessions</div>
         </div>
                 <%
@@ -150,51 +158,80 @@
             <thead>
             <tr>
                 <th>Appointment No</th>
-                <th>Patient Name ️</th>
-                <th>Doctor</th>
+                <th>Time</th>
+                <th>Patient Name</th>
                 <th>Session</th>
             </tr>
             </thead>
             <tbody>
+          <%
+       
+       try {
+           Class.forName("com.mysql.cj.jdbc.Driver");
+           String url="jdbc:mysql://localhost:3306/minorproject";
+           String uid="root";
+           String upass="1234";
+           conn=DriverManager.getConnection(url,uid,upass);
+           pstm = conn.prepareStatement("SELECT "+ 
+        	        "a.id AS `appointmentid`, " +
+        	        "d.username AS `doctor_name`, d.specialist AS `doctor_specialist`, " +
+        	        "a.date AS `app_date` " +
+        	        "FROM appointments a " +
+        	    	"INNER JOIN " +
+        		    "doctors d ON a.doctor_id = d.id " +
+        		"INNER JOIN " +
+        		    "patients p ON a.patient_id = p.id " +
+        		"INNER JOIN " +
+        		    "schedule s ON a.schedule = s.id " +
+        		"WHERE " +
+        	        "d.email = ? AND a.status = 'booked'" +
+        	    "ORDER BY " +
+        	        "a.id ASC LIMIT 5;");
+           pstm.setString(1, doctorEmail);
+           rs = pstm.executeQuery();
+           
+           while (rs.next()) {
+        	   int appointment_id = rs.getInt("appointmentid");
+            String doctor_name = rs.getString("doctor_name");
+            String doctor_specialist = rs.getString("doctor_specialist");
+            Timestamp app_date = rs.getTimestamp("app_date");
+            java.time.LocalDate appointmentLocalDate = app_date.toLocalDateTime().toLocalDate();
+            java.time.LocalDate today = java.time.LocalDate.now();
+            long daysLeft = java.time.temporal.ChronoUnit.DAYS.between(today, appointmentLocalDate);
+            
+            String daysLeftStr;
+            if (daysLeft > 0) {
+                daysLeftStr = daysLeft + " day(s) left";
+            } else if (daysLeft == 0) {
+                daysLeftStr = "Today";
+            } else {
+                daysLeftStr = "Past Appointment";
+            }
+       %>
             <tr>
-                <td>Shirt</td>
-                <td>$20</td>
-                <td>10</td>
-                <td>$200</td>
+                <td><%= appointment_id %></td>
+                <td><%= doctor_name %></td>
+                <td><%= doctor_specialist %></td>
+                <td><%= daysLeftStr  %></td>
             </tr>
-            <tr>
-                <td>Pants</td>
-                <td>$30</td>
-                <td>5</td>
-                <td>$150</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-            </tr>
+             <% } 
+                    } catch (Exception e) {
+                 e.printStackTrace(); %>
+                 <tr>
+                    <td colspan="7" style="color:red;">Error retrieving sessions</td>
+                </tr>
+            <% } %>
             </tbody>
         </table>
     </div>
 </main>
+<% } else { %>
+
+ <div class="errordiv">
+ 	<h1>Login</h1>
+ 		<a href="<%= request.getContextPath() %>/login.jsp">Go to Login Page</a>
+ </div>
+
+<% } %>
 </body>
 </html>

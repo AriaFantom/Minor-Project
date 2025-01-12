@@ -4,4 +4,6 @@ public interface AppointmentDao {
 	
 	boolean addBooking(Appointment appointment);
 	boolean removeBooking(String id);
+	boolean cancelBooking(String id);
+	boolean completeBooking(String id);
 }

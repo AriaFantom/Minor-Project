@@ -1,0 +1,9 @@
+package com.healthify.dao;
+
+public interface AppointmentDao {
+	
+	boolean addBooking(Appointment appointment);
+	boolean removeBooking(String id);
+	boolean canceBooking(String id);
+	boolean completeBooking(String id);
+}

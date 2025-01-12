@@ -324,3 +324,18 @@ main {
 .session-form .form-group select option:first-child {
     color: #999;
 }
+
+.errordiv {
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	justify-content:center;
+	background-color: #96c2c2;
+	height: 100vh;
+	width: 100%;
+	font-family: "Poppins", sans-serif;
+}
+
+.errordiv h1 {
+	text-transform: uppercase;
+}

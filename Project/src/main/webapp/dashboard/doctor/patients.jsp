@@ -11,15 +11,7 @@
     <link rel="stylesheet" href="../../css/doctor-panel.css">
 </head>
 <body>
-<aside class="side-bar">
-    <div class="user-info">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor"
-             stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="user-avatar">
-            <circle cx="12" cy="8" r="5"/>
-            <path d="M20 21a8 8 0 0 0-16 0"/>
-        </svg>
-         <%
+      <%
                 String username = "";
                 String doctorEmail = (String) session.getAttribute("email");
                 Connection conn = null;
@@ -40,8 +32,19 @@
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                } 
+                
+                if(username != null && !username.trim().isEmpty()) {
             %>
+<aside class="side-bar">
+    <div class="user-info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor"
+             stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="user-avatar">
+            <circle cx="12" cy="8" r="5"/>
+            <path d="M20 21a8 8 0 0 0-16 0"/>
+        </svg>
+   
                     		
         <p><%= username != null && !username.trim().isEmpty() ? username : "Not Logged In" %></p>
     </div>
@@ -81,66 +84,86 @@
             <caption>😷 Recent Patients</caption>
             <thead>
             <tr>
+            	<th>Session ID</th>
+            	<th>Appointment ID</th>
                 <th>Session Name</th>
-                <th>Doctor</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Max booking</th>
-                <th>Action</th>
+                <th>Patients Name</th>
+                <th>Patients Email</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
+              <%
+           
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    String url="jdbc:mysql://localhost:3306/minorproject";
+                    String uid="root";
+                    String upass="1234";
+                    conn=DriverManager.getConnection(url,uid,upass);
+                    pstm = conn.prepareStatement("SELECT "+ 
+                    "s.id AS `sessionid`, s.name as `session_name`, " +
+                    "a.id AS `appointmentid`, a.status AS `app_status`, " +
+                    "p.username AS `patient_name`, p.email AS `patient_email` " +
+                    "FROM appointments a " +
+                	"INNER JOIN " +
+            	    "doctors d ON a.doctor_id = d.id " +
+            	"INNER JOIN " +
+            	    "patients p ON a.patient_id = p.id " +
+            	"INNER JOIN " +
+            	    "schedule s ON a.schedule = s.id " +
+            	"WHERE " +
+                    "d.email = ? " +
+                "ORDER BY " +
+                    "a.id ASC;");
+                    
+                    pstm.setString(1, doctorEmail);
+                    rs = pstm.executeQuery();
+                    while (rs.next()) {
+                    	
+                    	int session_id = rs.getInt("sessionid");
+                    	int appointment_id = rs.getInt("appointmentid");
+                    	String app_status =  rs.getString("app_status");
+                    	String session_name =  rs.getString("session_name");
+                    	String patient_name = rs.getString("patient_name");
+                    	String patient_email = rs.getString("patient_email");
+                    	   String statusEmoji;
+                         if ("completed".equalsIgnoreCase(app_status)) {
+                               statusEmoji = "✅"; // White heavy check mark
+                           } else if ("canceled".equalsIgnoreCase(app_status)) {
+                               statusEmoji = "❌"; // Cross mark
+                           } else {
+                               statusEmoji = "❓"; // Question mark for unknown status
+                           }
+                    	
+                   %>    
             <tr>
-                <td>Shirt</td>
-                <td>$20</td>
-                <td>10</td>
-                <td>$200</td>
-                <td>10</td>
-                <td>$200</td>
+                <td><%= session_id %></td>
+                <td><%= appointment_id %></td>
+                <td><%= session_name %></td>
+                <td><%= patient_name %></td>
+                <td><%= patient_email %></td>
+                <td><%= statusEmoji %></td>
             </tr>
-            <tr>
-                <td>Pants</td>
-                <td>$30</td>
-                <td>5</td>
-                <td>$150</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
-            <tr>
-                <td>Shoes</td>
-                <td>$50</td>
-                <td>2</td>
-                <td>$100</td>
-                <td>10</td>
-                <td>$200</td>
-            </tr>
+            
+            <% } 
+          } catch (Exception e) {
+       e.printStackTrace(); %>
+       <tr>
+          <td colspan="7" style="color:red;">Error retrieving sessions</td>
+      </tr>
+  <% } %>
             </tbody>
         </table>
     </div>
 </main>
+<% } else { %>
+
+ <div class="errordiv">
+ 	<h1>Login</h1>
+ 		<a href="<%= request.getContextPath() %>/login.jsp">Go to Login Page</a>
+ </div>
+
+<% } %>
 </body>
 </html>

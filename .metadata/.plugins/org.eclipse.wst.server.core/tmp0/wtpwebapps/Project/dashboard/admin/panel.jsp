@@ -45,7 +45,7 @@
       </a>
     </li>
     <li>
-      <a href="patients.jsp">
+      <a href="patient.jsp">
         <div class="icon">🏥</div>
         Patients
       </a>
