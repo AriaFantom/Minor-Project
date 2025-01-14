@@ -1,0 +1,6 @@
+package com.healthify.dao;
+
+public class AdminDaoImpl implements AdminDao {
+
+	boolean isValid(String email, String password);
+}

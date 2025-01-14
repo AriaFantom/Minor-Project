@@ -192,7 +192,29 @@ main {
 .appointment-table td {
     font-size: 1em;
 }
+.edit-button {
+    background-color: #3d826d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s;
+    border: none;
+}
 
+.delete-button {
+    background-color: #823d3d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s;
+    border: none;
+}
 .errordiv {
 	display: flex;
 	flex-direction: column;

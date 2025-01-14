@@ -1,0 +1,6 @@
+package com.healthify.dao;
+
+public interface InvitationDao {
+	
+	boolean sendInvite(Invitation invitation);
+}

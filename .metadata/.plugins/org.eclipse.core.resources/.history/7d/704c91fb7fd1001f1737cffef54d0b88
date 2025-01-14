@@ -1,0 +1,6 @@
+package com.healthify.dao;
+import java.time.LocalDateTime;
+public interface InvitationDao {
+	
+	boolean sendInvite(Invite invite);
+}

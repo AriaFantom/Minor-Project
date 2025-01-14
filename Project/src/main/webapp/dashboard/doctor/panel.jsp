@@ -12,7 +12,7 @@
 </head>
 <body>
       <%
-  	String user_id = "";
+  				String user_id = "";
                 String username = "";
                 String doctorEmail = (String) session.getAttribute("email");
                 Connection conn = null;

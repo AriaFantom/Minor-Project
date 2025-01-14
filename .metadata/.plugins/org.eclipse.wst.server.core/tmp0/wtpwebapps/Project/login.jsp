@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+            <%@page import="java.sql.*" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +17,7 @@
     <div class="form-section">
         <img src="assets/icons/logo.png" alt="logo">
         <p>Login Form</p>
-        <form  method="post" action="LoginServlet">
+        <form  method="post" action="<%=request.getContextPath()%>/LoginServlet">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Enter your email">
             <label for="password">Password</label>

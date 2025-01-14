@@ -1,0 +1,11 @@
+package com.healthify.dao;
+
+public class Invitation {
+	
+	 private int id;
+	    private String doctorEmail;
+	    private String inviteToken;
+	    private LocalDateTime tokenExpiry;
+	    private boolean isUsed;
+
+}

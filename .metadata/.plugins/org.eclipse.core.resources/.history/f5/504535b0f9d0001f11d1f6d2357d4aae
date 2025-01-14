@@ -1,0 +1,5 @@
+package com.healthify.dao;
+
+public class AdminDaoImpl implements AdminDao {
+
+}

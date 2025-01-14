@@ -31,13 +31,14 @@ public class DoctorDaoImpl implements DoctorDao {
 	@Override	
     public boolean addDoctor(Doctor doctor) {
 		
-		String query = "INSERT INTO doctors (username, email, specialist) values (?, ?, ?);";
+		String query = "INSERT INTO doctors (username, password, specialist, email) values (?, ?, ?, ?);";
 		
 		try(Connection connection = DBUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 			    preparedStatement.setString(1, doctor.getUsername());
-			    preparedStatement.setString(2, doctor.getEmail());
+			    preparedStatement.setString(2, doctor.getPassword());
 			    preparedStatement.setString(3, doctor.getSpecialist());
+			    preparedStatement.setString(4, doctor.getEmail());
 			
 			    int rows = preparedStatement.executeUpdate();
 				return rows > 0;

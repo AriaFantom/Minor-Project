@@ -18,6 +18,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static UserDao userDao = new UserDaoImpl();
     private static DoctorDao doctorDao = new DoctorDaoImpl();
+    private static AdminDao adminDao = new AdminDaoImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -40,9 +41,11 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("email", email);
 			response.sendRedirect("dashboard/doctor/panel.jsp");
-		}
-		
-		else {
+		} else if (adminDao.isValid(email, password)) {
+			HttpSession session = request.getSession();
+			session.setAttribute("email", email);
+			response.sendRedirect("dashboard/admin/panel.jsp");
+		} else {
 			response.sendRedirect("login.jsp?err=notfound");
 		}
 	}

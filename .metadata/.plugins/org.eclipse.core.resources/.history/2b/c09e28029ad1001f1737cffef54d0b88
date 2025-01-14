@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+            <%@page import="java.sql.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+<main>
+    <div class="aside-form">
+        <img src="assets/form-side-vector.png" alt="vector">
+    </div>
+    <div class="form-section">
+        <img src="assets/icons/logo.png" alt="logo">
+        <p>Login Form</p>
+        <form  method="post" action="<%=request.getContextPath()%>/LoginServlet">
+            <label for="email">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username">
+            <label for="email">Specialist</label>
+            <input type="text" id="specialist" name="specialist" placeholder="Enter your specialization">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            <button>Login</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,8 @@
+package com.healthify.dao;
+
+public class Invitation {
+	
+	private int id;
+	private String doctor_email;
+
+}

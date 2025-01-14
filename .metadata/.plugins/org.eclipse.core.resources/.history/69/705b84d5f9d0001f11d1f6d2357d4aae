@@ -1,0 +1,12 @@
+package com.healthify.dao;
+
+public class AdminDaoImpl implements AdminDao {
+
+	@Override
+	public boolean isValid(String username, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+}

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@page import="java.sql.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,34 @@
     <link rel="stylesheet" href="../../css/admin-panel.css">
 </head>
 <body>
+<%
+	String user_id = "";
+String username = "";
+String doctorEmail = (String) session.getAttribute("email");
+Connection conn = null;
+PreparedStatement pstm = null;
+ResultSet rs = null;
+try {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    String url="jdbc:mysql://localhost:3306/minorproject";
+    String uid="root";
+    String upass="1234";
+    conn=DriverManager.getConnection(url,uid,upass);
+    
+    pstm = conn.prepareStatement("SELECT id, username from admins where email = ?");
+    pstm.setString(1, doctorEmail);
+    rs = pstm.executeQuery();
+    if (rs.next()) {
+    	user_id = rs.getString("id");
+        username = rs.getString("username");
+        
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+} 
+
+if(username != null && !username.trim().isEmpty()) {
+%>
 <aside class="side-bar">
     <div class="user-info">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -16,7 +47,7 @@
             <circle cx="12" cy="8" r="5"/>
             <path d="M20 21a8 8 0 0 0-16 0"/>
         </svg>
-        <p>Admin</p>
+        <p><%= username != null && !username.trim().isEmpty() ? username : "Not Logged In" %></p>
     </div>
     <ul class="siderbar-navlinks">
                 <li>
@@ -59,27 +90,50 @@
             <caption>😷 Patients</caption>
             <thead>
             <tr>
-                <th>Session Name</th>
-                <th>Doctor</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Max booking</th>
-                <th>Action</th>
+            	<th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
             </tr>
             </thead>
             <tbody>
+                  <%   try {
+           Class.forName("com.mysql.cj.jdbc.Driver");
+           String url="jdbc:mysql://localhost:3306/minorproject";
+           String uid="root";
+           String upass="1234";
+           conn=DriverManager.getConnection(url,uid,upass);
+           pstm = conn.prepareStatement("SELECT id, username, email FROM patients;");
+           rs = pstm.executeQuery();          
+           while (rs.next()) {
+        	   int patient_id = rs.getInt("id");
+               String patient_username = rs.getString("username");
+               String patient_email = rs.getString("email");
+              
+   				 %>
             <tr>
-                <td>Shirt</td>
-                <td>$20</td>
-                <td>10</td>
-                <td>$200</td>
-                <td>10</td>
-                <td>$200</td>
+                <td><%= patient_id %></td>
+                <td><%= patient_username %></td>
+                <td><%= patient_email %></td>
             </tr>
+            <% } 
+                    } catch (Exception e) {
+                 e.printStackTrace(); %>
+                 <tr>
+                    <td colspan="7" style="color:red;">Error retrieving sessions</td>
+                </tr>
+            <% } %>
      
             </tbody>
         </table>
     </div>
 </main>
+<% } else { %>
+
+ <div class="errordiv">
+ 	<h1>Login</h1>
+ 		<a href="<%= request.getContextPath() %>/login.jsp">Go to Login Page</a>
+ </div>
+
+<% } %>
 </body>
 </html>
