@@ -45,9 +45,9 @@ public class RemoveSessionServlet extends HttpServlet {
 	        try {
 	            boolean deleted = addsessionDao.removeSession(sessionId);
 	            if (deleted) {
-	                response.sendRedirect("dashboard/doctor/schedule.jsp");
+	                response.sendRedirect("dashboard/doctor/schedule.jsp?sucess=true");
 	            } else {
-	                response.sendRedirect("dashboard/doctor/schedule.jsp?error=No+session+found");
+	                response.sendRedirect("dashboard/doctor/schedule.jsp?error=true");
 	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();

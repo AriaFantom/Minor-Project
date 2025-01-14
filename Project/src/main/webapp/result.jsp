@@ -5,42 +5,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Doctor Search Result</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .result-container {
-            background-color: #f4f4f4;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .not-found {
-            color: red;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="css/search.css">
 </head>
 <body>
-    <div class="result-container">
-        <%
-            Doctor doctor = (Doctor)request.getAttribute("doctor");
-            if (doctor != null) {
-        %>
-            <h2>Doctor Found</h2>
-            <p><strong>Username:</strong> <%= doctor.getUsername() %></p>
-            <p><strong>Specialist:</strong> <%= doctor.getSpecialist() %></p>
-        <%
-            } else {
-        %>
-            <h2 class="not-found">Doctor Not Found</h2>
-            <p class="not-found">No doctor found with the provided username.</p>
-        <%
-            }
-        %>
+    <!-- Header Section with Landscape Image -->
+    <div class="header">
+        <div class="header-overlay"></div>
+        <div class="header-title">Doctor Search Results</div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="content">
+        <div class="result-container">
+            <%
+                Doctor doctor = (Doctor)request.getAttribute("doctor");
+                if (doctor != null) {
+            %>
+                <h2 style="text-align:center; color:#28a745;">Doctor Found</h2>
+                <div class="doctor-card">
+                    <div class="doctor-image" style="background-image: url('<%=request.getContextPath()%>/images/doctor-placeholder.png');"></div>
+                    <div class="doctor-info">
+                        <p class="doctor-name"><%= doctor.getUsername() %></p>
+                        <p class="doctor-specialist"><strong>Specialization:</strong> <%= doctor.getSpecialist() %></p>
+                    </div>
+                </div>
+                <a href="<%=request.getContextPath()%>/login.jsp" class="back-button">Book Now</a>
+            <%
+                } else {
+            %>
+                <h2 class="not-found">Doctor Not Found</h2>
+                <p class="not-found">No doctor found with the provided username.</p>
+                <a href="<%=request.getContextPath()%>/index.jsp" class="back-button">Back to Home</a>
+            <%
+                }
+            %>
+        </div>
     </div>
 </body>
 </html>

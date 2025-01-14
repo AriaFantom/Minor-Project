@@ -13,6 +13,26 @@
         <img src="assets/form-side-vector.png" alt="vector">
     </div>
     <div class="form-section">
+     <% 
+            String success = request.getParameter("success");
+            if ("true".equalsIgnoreCase(success)) {
+        %>
+                <div class="alert alert-success">
+                    Operation completed successfully.
+                </div>
+        <% 
+            }
+        %>
+        <% 
+            String error = request.getParameter("error");
+            if ("true".equalsIgnoreCase(error)) {
+        %>
+                <div class="alert alert-danger">
+                    An error occurred while processing your request.
+                </div>
+        <% 
+            }
+        %>
         <img src="assets/icons/logo.png" alt="logo">
         <p class="form-heading">Registration Form</p>
         <form method="post" action="RegisterServlet">

@@ -6,6 +6,8 @@ public interface DoctorDao {
 	
 	boolean addDoctor(Doctor doctor);
 	
+	boolean deleteDoctor(String doctorId);
+	
 	Doctor searchDoctor(Doctor doctor);
 
 }

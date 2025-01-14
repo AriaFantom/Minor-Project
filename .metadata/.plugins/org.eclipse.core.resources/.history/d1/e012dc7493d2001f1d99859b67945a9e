@@ -1,0 +1,69 @@
+package com.healthify.controller;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * Servlet implementation class UpdateStatusServlet
+ */
+@WebServlet("/UpdateStatusServlet")
+public class UpdateStatusServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateStatusServlet() {
+        super();
+        
+    }
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		  String appointmentIdStr = request.getParameter("appointment_id");
+	        String newStatus = request.getParameter("new_status");
+
+	        // Basic validation
+	        if (appointmentIdStr == null || appointmentIdStr.isEmpty() || newStatus == null || newStatus.isEmpty()) {
+	            request.setAttribute("error", "Invalid appointment ID or status.");
+	            request.getRequestDispatcher("/appointmentsViewer.jsp").forward(request, response);
+	            return;
+	        }
+
+	        int appointmentId;
+	        try {
+	            appointmentId = Integer.parseInt(appointmentIdStr);
+	        } catch (NumberFormatException e) {
+	            request.setAttribute("error", "Invalid appointment ID format.");
+	            request.getRequestDispatcher("/appointmentsViewer.jsp").forward(request, response);
+	            return;
+	        }
+
+	        // Validate newStatus against allowed values
+	        if (!newStatus.equalsIgnoreCase("booked") && 
+	            !newStatus.equalsIgnoreCase("completed") && 
+	            !newStatus.equalsIgnoreCase("canceled")) {
+	            request.setAttribute("error", "Invalid status value.");
+	            request.getRequestDispatcher("/appointmentsViewer.jsp").forward(request, response);
+	            return;
+	        }
+
+	        try {
+	            boolean isUpdated = appointmentDAO.updateAppointmentStatus(appointmentId, newStatus);
+	            if (isUpdated) {
+	                request.setAttribute("message", "Appointment status updated successfully.");
+	            } else {
+	                request.setAttribute("error", "Failed to update appointment status.");
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            request.setAttribute("error", "An error occurred while updating the status.");
+	        }
+	}
+
+}

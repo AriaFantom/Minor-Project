@@ -82,6 +82,28 @@ if(username != null && !username.trim().isEmpty()) {
     </ul>
 </aside>
 <main>
+ <% 
+            String success = request.getParameter("success");
+            if ("true".equalsIgnoreCase(success)) {
+        %>
+                <div class="alert alert-success">
+                    Operation completed successfully.
+                </div>
+        <% 
+            }
+        %>
+
+        <!-- Error Message -->
+        <% 
+            String error = request.getParameter("error");
+            if ("true".equalsIgnoreCase(error)) {
+        %>
+                <div class="alert alert-danger">
+                    An error occurred while processing your request.
+                </div>
+        <% 
+            }
+        %>
     <div class="top-heading">
         <h4 class="panel-heading">Patient List</h4>
     </div>
@@ -114,6 +136,11 @@ if(username != null && !username.trim().isEmpty()) {
                 <td><%= patient_id %></td>
                 <td><%= patient_username %></td>
                 <td><%= patient_email %></td>
+                <td><form action="<%=request.getContextPath()%>/RemoveRecordServlet" method="post">
+                	<input type="hidden" name="type" value="patient"/>
+                     <input type="hidden" name="session_id" value="<%= patient_id %>"/>
+                   <button type="submit" class="delete-button">Delete</button>
+                  </form></td>
             </tr>
             <% } 
                     } catch (Exception e) {

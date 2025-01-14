@@ -104,6 +104,23 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		        return false;
 		    }
 	}
+
+	@Override
+	public boolean updateAppointmentStatus(int appointmentId, String newStatus) {
+		 
+		 String sql = "UPDATE appointments SET status = ? WHERE id = ?;";
+		    try (Connection connection = DBUtil.getConnection();
+		         PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+		    	preparedStatement.setString(1, newStatus.toLowerCase());
+		    	preparedStatement.setInt(2, appointmentId);
+		    	 int rowsAffected = preparedStatement.executeUpdate();
+		         return rowsAffected > 0;    
+		        
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return false;
+		    }
+	}
 	
 	
 }

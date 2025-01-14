@@ -41,9 +41,9 @@ public class CancelBooking extends HttpServlet {
         boolean isCanceled = appointmentDao.cancelBooking(appointmentId);
 
         if (isCanceled) {
-        	response.sendRedirect("dashboard/doctor/appointments.jsp?cancel=true");
+        	response.sendRedirect("dashboard/doctor/appointments.jsp?sucess=true");
         } else {
-        	response.sendRedirect("dashboard/doctor/appointments.jsp?cancel=false");
+        	response.sendRedirect("dashboard/doctor/appointments.jsp?error=true");
         }
 	}
 

@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("email", email);
 			response.sendRedirect("dashboard/admin/panel.jsp");
 		} else {
-			response.sendRedirect("login.jsp?err=notfound");
+			response.sendRedirect("login.jsp?error=true");
 		}
 	}
 

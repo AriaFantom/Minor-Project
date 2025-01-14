@@ -44,7 +44,7 @@ public class BookAppointment extends HttpServlet {
 	    if(appointmentDao.addBooking(appointment)) {
 	    	response.sendRedirect("dashboard/patient/booking.jsp?sucess=true");
 	    } else {
-	    	response.sendRedirect("dashboard/patient/booking.jsp?sucess=false");
+	    	response.sendRedirect("dashboard/patient/booking.jsp?error=true");
 	    }
 	    
 	}

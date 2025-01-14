@@ -83,6 +83,28 @@ if(username != null && !username.trim().isEmpty()) {
     </ul>
 </aside>
 <main>
+ <% 
+            String success = request.getParameter("success");
+            if ("true".equalsIgnoreCase(success)) {
+        %>
+                <div class="alert alert-success">
+                    Operation completed successfully.
+                </div>
+        <% 
+            }
+        %>
+
+        <!-- Error Message -->
+        <% 
+            String error = request.getParameter("error");
+            if ("true".equalsIgnoreCase(error)) {
+        %>
+                <div class="alert alert-danger">
+                    An error occurred while processing your request.
+                </div>
+        <% 
+            }
+        %>
     <div class="top-heading">
         <h4 class="panel-heading">Doctors List</h4>
          <a href="invite.jsp"><button class="add-button">+ Add New Doctor</button></a>
@@ -92,10 +114,11 @@ if(username != null && !username.trim().isEmpty()) {
             <caption>🧑‍⚕️ Current Doctors</caption>
             <thead>
             <tr>
-                <th>Doctor Name</th>
+                <th>Doctor Id</th>
+                <th>Username</th>
                 <th>Email</th>
-                <th>Specialities</th>
-                <th>Actions</th>
+                <th>Specialist</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -120,6 +143,11 @@ if(username != null && !username.trim().isEmpty()) {
                 <td><%= doctor_username %></td>
                 <td><%= doctor_email %></td>
                 <td><%= doctor_specialist %></td>
+                   <td><form action="<%=request.getContextPath()%>/RemoveRecordServlet" method="post">
+                   		<input type="hidden" name="type" value="doctor"/>
+                          <input type="hidden" name="session_id" value="<%= doctor_id %>"/>
+                          <button type="submit" class="delete-button">Delete</button>
+                        </form></td>
             </tr>
             <% } 
                     } catch (Exception e) {

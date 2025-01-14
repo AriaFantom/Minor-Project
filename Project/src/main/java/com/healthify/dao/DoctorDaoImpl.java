@@ -76,4 +76,20 @@ public class DoctorDaoImpl implements DoctorDao {
 	            return null;
 	        }
 	    }
+
+	@Override
+	public boolean deleteDoctor(String doctorId) {
+		String query = "DELETE FROM doctors WHERE id = ?;";
+		
+		try(Connection connection = DBUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			    preparedStatement.setString(1, doctorId);
+			
+			    int rows = preparedStatement.executeUpdate();
+				return rows > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

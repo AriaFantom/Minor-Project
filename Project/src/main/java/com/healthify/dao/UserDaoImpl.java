@@ -51,4 +51,21 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
+	@Override
+	public boolean deletePatient(String patientId) {
+
+			String query = "DELETE FROM patients WHERE id = ?;";
+			
+			try(Connection connection = DBUtil.getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+				    preparedStatement.setString(1, patientId);
+				
+				    int rows = preparedStatement.executeUpdate();
+					return rows > 0;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+	}
+
 }

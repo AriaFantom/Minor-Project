@@ -324,7 +324,24 @@ main {
 .session-form .form-group select option:first-child {
     color: #999;
 }
-
+.alert {
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 4px;
+            width: 95%;
+            font-size: 16px;
+            text-align: center;
+}
+.alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+}
+.alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+ }
 .errordiv {
 	display: flex;
 	flex-direction: column;

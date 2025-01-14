@@ -50,9 +50,9 @@ public class AddSessionServlet extends HttpServlet {
 	        sessionData.setWeek(dayOfWeek);
 	        
 	        if(addsessionDao.addSession(sessionData, doctorId)) {
-	        	response.sendRedirect("dashboard/doctor/schedule.jsp?code=success");
+	        	response.sendRedirect("dashboard/doctor/schedule.jsp?sucess=true");
 	        } else {
-	        	response.sendRedirect("dashboard/doctor/schedule.jsp?code=error");
+	        	response.sendRedirect("dashboard/doctor/schedule.jsp?error=true");
 	        }
 	        
 

@@ -81,6 +81,27 @@
     </ul>
 </aside>
 <main>
+ <% 
+            String success = request.getParameter("success");
+            if ("true".equalsIgnoreCase(success)) {
+        %>
+                <div class="alert alert-success">
+                    Operation completed successfully.
+                </div>
+        <% 
+            }
+        %>
+
+        <% 
+            String error = request.getParameter("error");
+            if ("true".equalsIgnoreCase(error)) {
+        %>
+                <div class="alert alert-danger">
+                    An error occurred while processing your request.
+                </div>
+        <% 
+            }
+        %>
     <div class="top-heading">
         <h4 class="panel-heading">Session Adding</h4>
     </div>

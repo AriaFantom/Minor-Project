@@ -52,7 +52,7 @@ public class AddCredentials extends HttpServlet {
 		 if (token == null || token.isEmpty() || email == null || email.isEmpty() || username == null || username.isEmpty() ||
 		            specialist == null || specialist.isEmpty() || password == null || password.isEmpty()) {
 
-			 response.sendRedirect("verify.jsp?code=emptyfeilds");
+			 response.sendRedirect("verify.jsp?error=true");
 		} 
 		 
 		 Invitation invitation = new Invitation();

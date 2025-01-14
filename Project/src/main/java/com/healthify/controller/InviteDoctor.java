@@ -50,7 +50,7 @@ public class InviteDoctor extends HttpServlet {
 			    response.sendRedirect("verify.jsp");
 			 
 			} else {
-				response.sendRedirect("verify.jsp?error=invalid");
+				response.sendRedirect("verify.jsp?error=true");
 			}
 	}
 
@@ -60,7 +60,7 @@ public class InviteDoctor extends HttpServlet {
 		 String doctorEmail = request.getParameter("doctor_email");
 
 	        if (doctorEmail == null || doctorEmail.isEmpty()) {
-	        	response.sendRedirect("dashboard/admin/invite.jsp?error=noEmail");
+	        	response.sendRedirect("dashboard/admin/invite.jsp?error=true");
 	        }
 	        
 	        try {
@@ -80,7 +80,7 @@ public class InviteDoctor extends HttpServlet {
 	        
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	            response.sendRedirect("dashboard/admin/invite.jsp?error=Error");
+	            response.sendRedirect("dashboard/admin/invite.jsp?error=true");
 	        }
 	        
 	      

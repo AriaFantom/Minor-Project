@@ -33,9 +33,9 @@ public class DeleteAppointment extends HttpServlet {
 		String appointment_id = request.getParameter("appointment_id");
 		
 		if(appointmentDao.removeBooking(appointment_id)) {
-			response.sendRedirect("dashboard/patient/booking.jsp?remove=true");
+			response.sendRedirect("dashboard/patient/booking.jsp?sucess=true");
 		} else {
-			response.sendRedirect("dashboard/patient/booking.jsp?remove=false");
+			response.sendRedirect("dashboard/patient/booking.jsp?error=true");
 		}
 	}
 

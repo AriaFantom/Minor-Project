@@ -83,6 +83,28 @@ if(username != null && !username.trim().isEmpty()) {
   </ul>
 </aside>
 <main>
+ <% 
+            String success = request.getParameter("success");
+            if ("true".equalsIgnoreCase(success)) {
+        %>
+                <div class="alert alert-success">
+                    Operation completed successfully.
+                </div>
+        <% 
+            }
+        %>
+
+        <!-- Error Message -->
+        <% 
+            String error = request.getParameter("error");
+            if ("true".equalsIgnoreCase(error)) {
+        %>
+                <div class="alert alert-danger">
+                    An error occurred while processing your request.
+                </div>
+        <% 
+            }
+        %>
   <div class="top-heading">
     <h4 class="panel-heading">Appointments Viewer</h4>
   </div>
@@ -97,6 +119,7 @@ if(username != null && !username.trim().isEmpty()) {
         <th>Time</th>
         <th>Patient Name</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
       </thead>
       <tbody>
@@ -113,7 +136,7 @@ if(username != null && !username.trim().isEmpty()) {
         		    "d.username AS doctor_name, " +
         		    "s.end_time, s.start_time, " +
         		    "p.username AS patient_name, " +
-        		    "a.status, a.date " + 
+        		    "a.status, a.date, a.id AS `appointment_id` " + 
         		    "FROM " +
         		    "appointments a " +
         		"INNER JOIN " +
@@ -128,6 +151,7 @@ if(username != null && !username.trim().isEmpty()) {
                	rs = pstm.executeQuery();
                   
                   while (rs.next()) {
+                	  String appointment_id = rs.getString("appointment_id");
                       String sessionName = rs.getString("session_name");
                       String doctorName = rs.getString("doctor_name");
                       Timestamp appDateTimestamp = rs.getTimestamp("date");
@@ -156,6 +180,19 @@ if(username != null && !username.trim().isEmpty()) {
                   <td><%= startTime %> - <%= endTime %></td>
                   <td><%= patientName %></td>
                   <td><%= statusEmoji %></td>
+                  <td>
+                     <div class="session-form">
+                     <form action="<%=request.getContextPath()%>/UpdateStatusServlet" method="post" class="form-group">
+                         <input type="hidden" name="appointment_id" value="<%= appointment_id %>">
+                         <select name="new_status" onchange="this.form.submit()" required>
+                             <option value="">--Select Status--</option>
+                             <option value="booked" <%= "booked".equalsIgnoreCase(appStatus) ? "selected" : "" %>>Booked 📅</option>
+                             <option value="completed" <%= "completed".equalsIgnoreCase(appStatus) ? "selected" : "" %>>Completed ✅</option>
+                             <option value="canceled" <%= "canceled".equalsIgnoreCase(appStatus) ? "selected" : "" %>>Canceled ❌</option>
+                         </select>
+                     </form>
+                     </div>
+                      </td>
               </tr>
                <% } 
                     } catch (Exception e) {

@@ -42,7 +42,7 @@ public class CompleteAppointment extends HttpServlet {
 	        if (isCompleted) {
 	        	response.sendRedirect("dashboard/doctor/appointments.jsp?sucess=true");
 	        } else {
-	        	response.sendRedirect("dashboard/doctor/appointments.jsp?sucess=false");
+	        	response.sendRedirect("dashboard/doctor/appointments.jsp?error=true");
 	        }
 	}
 

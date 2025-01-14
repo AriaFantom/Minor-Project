@@ -5,5 +5,7 @@ public interface UserDao {
 	boolean isValid(String email, String password);
 
 	boolean addUser(User user);
+	
+	boolean deletePatient(String patientId);
 
 }

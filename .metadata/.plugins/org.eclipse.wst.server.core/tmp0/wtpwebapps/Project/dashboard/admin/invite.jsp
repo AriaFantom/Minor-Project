@@ -83,6 +83,28 @@ if(username != null && !username.trim().isEmpty()) {
     </ul>
 </aside>
 <main>
+ <% 
+            String success = request.getParameter("success");
+            if ("true".equalsIgnoreCase(success)) {
+        %>
+                <div class="alert alert-success">
+                    Operation completed successfully.
+                </div>
+        <% 
+            }
+        %>
+
+        <!-- Error Message -->
+        <% 
+            String error = request.getParameter("error");
+            if ("true".equalsIgnoreCase(error)) {
+        %>
+                <div class="alert alert-danger">
+                    An error occurred while processing your request.
+                </div>
+        <% 
+            }
+        %>
   <div class="top-heading">
         <h4 class="panel-heading">Invite Doctors</h4>
     </div>
