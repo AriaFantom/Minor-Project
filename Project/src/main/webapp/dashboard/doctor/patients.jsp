@@ -108,8 +108,9 @@
             	<th>Appointment ID</th>
                 <th>Session Name</th>
                 <th>Patients Name</th>
-                <th>Patients Email</th>
-                <th>Status</th>
+                <th>Phone Number</th>
+                <th>Patients Email</th>               
+                <th>App Status</th>
             </tr>
             </thead>
             <tbody>
@@ -124,7 +125,7 @@
                     pstm = conn.prepareStatement("SELECT "+ 
                     "s.id AS `sessionid`, s.name as `session_name`, " +
                     "a.id AS `appointmentid`, a.status AS `app_status`, " +
-                    "p.username AS `patient_name`, p.email AS `patient_email` " +
+                    "p.username AS `patient_name`, p.email AS `patient_email`, p.phno AS `patient_phno` " +
                     "FROM appointments a " +
                 	"INNER JOIN " +
             	    "doctors d ON a.doctor_id = d.id " +
@@ -146,6 +147,7 @@
                     	String app_status =  rs.getString("app_status");
                     	String session_name =  rs.getString("session_name");
                     	String patient_name = rs.getString("patient_name");
+                    	String patient_phno = rs.getString("patient_phno");
                     	String patient_email = rs.getString("patient_email");
                     	   String statusEmoji;
                          if ("completed".equalsIgnoreCase(app_status)) {
@@ -162,6 +164,7 @@
                 <td><%= appointment_id %></td>
                 <td><%= session_name %></td>
                 <td><%= patient_name %></td>
+                 <td><%= patient_phno %></td>
                 <td><%= patient_email %></td>
                 <td><%= statusEmoji %></td>
             </tr>

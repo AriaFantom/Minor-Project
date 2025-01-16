@@ -6,5 +6,6 @@ public interface AppointmentDao {
 	boolean removeBooking(String id);
 	boolean cancelBooking(String id);
 	boolean completeBooking(String id);
+	
 	boolean updateAppointmentStatus(int appointmentId, String newStatus);
 }

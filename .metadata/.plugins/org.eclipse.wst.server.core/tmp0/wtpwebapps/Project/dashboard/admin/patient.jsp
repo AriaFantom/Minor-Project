@@ -115,6 +115,8 @@ if(username != null && !username.trim().isEmpty()) {
             	<th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Ph No</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -124,18 +126,20 @@ if(username != null && !username.trim().isEmpty()) {
            String uid="root";
            String upass="1234";
            conn=DriverManager.getConnection(url,uid,upass);
-           pstm = conn.prepareStatement("SELECT id, username, email FROM patients;");
+           pstm = conn.prepareStatement("SELECT id, username, email, phno FROM patients;");
            rs = pstm.executeQuery();          
            while (rs.next()) {
         	   int patient_id = rs.getInt("id");
                String patient_username = rs.getString("username");
                String patient_email = rs.getString("email");
+               String phno = rs.getString("phno");
               
    				 %>
             <tr>
                 <td><%= patient_id %></td>
                 <td><%= patient_username %></td>
                 <td><%= patient_email %></td>
+                <td><%= phno %></td>
                 <td><form action="<%=request.getContextPath()%>/RemoveRecordServlet" method="post">
                 	<input type="hidden" name="type" value="patient"/>
                      <input type="hidden" name="session_id" value="<%= patient_id %>"/>

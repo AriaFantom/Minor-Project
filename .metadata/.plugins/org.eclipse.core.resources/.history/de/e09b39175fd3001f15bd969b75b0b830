@@ -139,7 +139,6 @@ if(username != null && !username.trim().isEmpty()) {
                 <td><%= patient_id %></td>
                 <td><%= patient_username %></td>
                 <td><%= patient_email %></td>
-                <td><%= phno %></td>
                 <td><form action="<%=request.getContextPath()%>/RemoveRecordServlet" method="post">
                 	<input type="hidden" name="type" value="patient"/>
                      <input type="hidden" name="session_id" value="<%= patient_id %>"/>

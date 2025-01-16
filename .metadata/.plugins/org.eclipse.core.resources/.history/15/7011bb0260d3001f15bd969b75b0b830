@@ -100,7 +100,12 @@
     <div class="top-heading">
         <h4 class="panel-heading">Doctors List</h4>
     </div>
-
+    <div class="searchbar-header">
+        <from>
+            <input type="text" placeholder="Search for doctors">
+            <button>Search</button>
+        </from>
+    </div>
      
      <!-- Doctors container  --> 
      
