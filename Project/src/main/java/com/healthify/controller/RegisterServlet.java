@@ -41,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
 		user.setPassword(password);
 		
 		if(userDao.addUser(user)) {
-			response.sendRedirect("login.jsp?sucess=true");
+			response.sendRedirect("login.jsp?success=true");
 		} else {
 			response.sendRedirect("register.jsp?error=true");
 		}

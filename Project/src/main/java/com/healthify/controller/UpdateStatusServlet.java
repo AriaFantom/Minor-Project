@@ -56,7 +56,7 @@ public class UpdateStatusServlet extends HttpServlet {
 	        try {
 	            boolean isUpdated = appointmentDao.updateAppointmentStatus(appointmentId, newStatus);
 	            if (isUpdated) {
-	            	response.sendRedirect("dashboard/admin/appointments.jsp?sucess=true");
+	            	response.sendRedirect("dashboard/admin/appointments.jsp?success=true");
 	            } else {
 	                response.sendRedirect("dashboard/admin/appointments.jsp?error=true");
 	            }

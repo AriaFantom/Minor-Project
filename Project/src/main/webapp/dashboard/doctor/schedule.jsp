@@ -76,7 +76,7 @@
 </aside>
 <main>
  <% 
-            String success = request.getParameter("success");
+            String success = request.getParameter("sucess");
             if ("true".equalsIgnoreCase(success)) {
         %>
                 <div class="alert alert-success">

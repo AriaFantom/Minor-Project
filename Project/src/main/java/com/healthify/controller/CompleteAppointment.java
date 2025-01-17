@@ -33,14 +33,14 @@ public class CompleteAppointment extends HttpServlet {
 
 	        // Validate the appointment ID
 	        if (appointmentId == null || appointmentId.trim().isEmpty()) {
-	        	response.sendRedirect("dashboard/doctor/appointments.jsp?sucess=false");
+	        	response.sendRedirect("dashboard/doctor/appointments.jsp?success=false");
 	        }
 
 	        // Attempt to complete the booking
 	        boolean isCompleted = appointmentDao.completeBooking(appointmentId);
 
 	        if (isCompleted) {
-	        	response.sendRedirect("dashboard/doctor/appointments.jsp?sucess=true");
+	        	response.sendRedirect("dashboard/doctor/appointments.jsp?success=true");
 	        } else {
 	        	response.sendRedirect("dashboard/doctor/appointments.jsp?error=true");
 	        }

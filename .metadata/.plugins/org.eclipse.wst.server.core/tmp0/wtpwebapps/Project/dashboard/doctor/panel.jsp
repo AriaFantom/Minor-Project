@@ -158,9 +158,9 @@
             <thead>
             <tr>
                 <th>Appointment No</th>
+                <th>username</th>
+                <th>Specialist</th>
                 <th>Time</th>
-                <th>Patient Name</th>
-                <th>Session</th>
             </tr>
             </thead>
             <tbody>

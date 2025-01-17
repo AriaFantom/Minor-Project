@@ -9,5 +9,7 @@ public interface DoctorDao {
 	boolean deleteDoctor(String doctorId);
 	
 	Doctor searchDoctor(Doctor doctor);
+	
+	
 
 }

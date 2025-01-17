@@ -136,13 +136,13 @@ if(username != null && !username.trim().isEmpty()) {
 
         <div class="stats-card bookings">
             <div class="stats-icon">📅</div>
-            <div class="stats-number"><%= Bookings %></div>
-            <div class="stats-label">New Bookings</div>
+            <div class="stats-number"><%= Appointments %></div>
+            <div class="stats-label">Total Bookings</div>
         </div>
 
         <div class="stats-card sessions">
             <div class="stats-icon">🩺</div>
-            <div class="stats-number"><%= Appointments %></div>
+            <div class="stats-number"><%= Bookings %></div>
             <div class="stats-label">Total Sessions</div>
         </div>
                 <%

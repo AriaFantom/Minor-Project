@@ -38,8 +38,9 @@ public class AddSessionServlet extends HttpServlet {
 	        String startTime = request.getParameter("start_time");
 	        String endTime = request.getParameter("end_time");
 	        int dayOfWeek = Integer.parseInt(request.getParameter("week"));
-	        System.out.println(startTime);
-	        System.out.println(endTime);
+		    String referrer = request.getHeader("referer");
+		    String prefix = "http://localhost:8080/Project/";
+		    String trimmedUrl = referrer.replace(prefix, "");
 	        
 	        
 	        Session sessionData = new Session();
@@ -50,9 +51,9 @@ public class AddSessionServlet extends HttpServlet {
 	        sessionData.setWeek(dayOfWeek);
 	        
 	        if(addsessionDao.addSession(sessionData, doctorId)) {
-	        	response.sendRedirect("dashboard/doctor/schedule.jsp?sucess=true");
+	        	response.sendRedirect(trimmedUrl + "?success=true");
 	        } else {
-	        	response.sendRedirect("dashboard/doctor/schedule.jsp?error=true");
+	        	response.sendRedirect(trimmedUrl + "?error=true");
 	        }
 	        
 

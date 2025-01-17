@@ -42,7 +42,7 @@ public class BookAppointment extends HttpServlet {
 	    appointment.setSchedule(session_id);
 	    
 	    if(appointmentDao.addBooking(appointment)) {
-	    	response.sendRedirect("dashboard/patient/booking.jsp?sucess=true");
+	    	response.sendRedirect("dashboard/patient/booking.jsp?success=true");
 	    } else {
 	    	response.sendRedirect("dashboard/patient/booking.jsp?error=true");
 	    }

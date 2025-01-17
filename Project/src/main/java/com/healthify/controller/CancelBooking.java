@@ -34,14 +34,14 @@ public class CancelBooking extends HttpServlet {
 
         // Validate the appointment ID
         if (appointmentId == null || appointmentId.trim().isEmpty()) {
-        	response.sendRedirect("dashboard/doctor/appointments.jsp?cancel=false");
+        	response.sendRedirect("dashboard/doctor/appointments.jsp?error=true");
         }
 
         // Attempt to cancel the booking
         boolean isCanceled = appointmentDao.cancelBooking(appointmentId);
 
         if (isCanceled) {
-        	response.sendRedirect("dashboard/doctor/appointments.jsp?sucess=true");
+        	response.sendRedirect("dashboard/doctor/appointments.jsp?success=true");
         } else {
         	response.sendRedirect("dashboard/doctor/appointments.jsp?error=true");
         }

@@ -32,7 +32,9 @@ public class RemoveSessionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		    String sessionIdParam = request.getParameter("session_id");
-		    System.out.print(sessionIdParam);
+		    String referrer = request.getHeader("referer");
+		    String prefix = "http://localhost:8080/Project/";
+		    String trimmedUrl = referrer.replace(prefix, "");
 
 	        int sessionId;
 	        try {
@@ -45,9 +47,9 @@ public class RemoveSessionServlet extends HttpServlet {
 	        try {
 	            boolean deleted = addsessionDao.removeSession(sessionId);
 	            if (deleted) {
-	                response.sendRedirect("dashboard/doctor/schedule.jsp?sucess=true");
+	                response.sendRedirect(trimmedUrl + "?success=true");
 	            } else {
-	                response.sendRedirect("dashboard/doctor/schedule.jsp?error=true");
+	                response.sendRedirect(trimmedUrl + "?error=true");
 	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
